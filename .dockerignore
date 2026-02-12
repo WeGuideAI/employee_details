@@ -1,0 +1,16 @@
+.git
+.gitignore
+.venv
+venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+.env
+app/static/uploads/employees/*
+app/static/uploads/logos/*
+app/static/uploads/qrcodes/*
+!app/static/uploads/employees/.gitkeep
+!app/static/uploads/logos/.gitkeep
+!app/static/uploads/qrcodes/.gitkeep

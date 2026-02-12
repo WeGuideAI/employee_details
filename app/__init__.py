@@ -44,6 +44,10 @@ def create_app(config_name: str = "production") -> Flask:
     with app.app_context():
         db.create_all()
 
+    @app.get("/healthz")
+    def healthz():
+        return {"status": "ok"}, 200
+
     return app
 
 
