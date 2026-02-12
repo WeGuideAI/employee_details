@@ -42,7 +42,7 @@
                     </td>
                     <td data-label="QR">
                         {% if employee.qr_code_path %}
-                            <img class="qr-thumb" src="{{ url_for('static', filename=employee.qr_code_path) }}" alt="QR Code">
+                            <img class="qr-thumb" src="{{ media_url(employee.qr_code_path) }}" alt="QR Code">
                         {% else %}
                             -
                         {% endif %}

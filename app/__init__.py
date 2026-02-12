@@ -25,10 +25,15 @@ def create_app(config_name: str = "production") -> Flask:
     login_manager.login_message_category = "warning"
 
     from app.models import AdminUser
+    from app.utils import media_url
 
     @login_manager.user_loader
     def load_user(user_id: str):
         return AdminUser.query.get(int(user_id))
+
+    @app.context_processor
+    def inject_media_helpers():
+        return {"media_url": media_url}
 
     from app.auth.routes import auth_bp
     from app.admin.routes import admin_bp

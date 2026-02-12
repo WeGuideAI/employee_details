@@ -20,7 +20,7 @@
                 <div class="id-glow" aria-hidden="true"></div>
                 <div class="id-left">
                     {% if employee.photo_path %}
-                        <img class="profile-photo" src="{{ url_for('static', filename=employee.photo_path) }}" alt="{{ employee.full_name }}">
+                        <img class="profile-photo" src="{{ media_url(employee.photo_path) }}" alt="{{ employee.full_name }}">
                     {% else %}
                         <div class="profile-fallback">{{ employee.full_name[:1] }}</div>
                     {% endif %}
@@ -54,7 +54,7 @@
                         <p class="service-pill">Corporate Directory</p>
                     </div>
                     {% if employee.qr_code_path %}
-                        <img class="back-qr" src="{{ url_for('static', filename=employee.qr_code_path) }}" alt="Employee QR">
+                        <img class="back-qr" src="{{ media_url(employee.qr_code_path) }}" alt="Employee QR">
                     {% endif %}
                     <p class="back-id">Employee Code: {{ employee.employee_code }}</p>
                 </div>
@@ -64,7 +64,7 @@
 
     <div class="qr-panel glass-card">
         {% if employee.qr_code_path %}
-            <img src="{{ url_for('static', filename=employee.qr_code_path) }}" alt="Employee QR">
+            <img src="{{ media_url(employee.qr_code_path) }}" alt="Employee QR">
         {% endif %}
         <div>
             <p class="qr-title">Secure WeGuide digital ID profile</p>

@@ -7,6 +7,7 @@ Production-ready Flask application for managing employee profiles, generating QR
 - Employee CRUD with photo upload
 - QR code generation per employee (public profile URL)
 - Public profile page accessible via scanned QR code
+- Optional Cloudinary storage for persistent photos/QRs
 - Blue and white glassmorphic UI with smooth animations
 - Ready for cloud deployment (Railway, Gunicorn + WSGI)
 
@@ -36,13 +37,19 @@ Production-ready Flask application for managing employee profiles, generating QR
 ## Deploy On Railway
 1. Push this repository to GitHub.
 2. In Railway, create a new project and select the repo.
-3. Railway will use `Dockerfile` + `railway.toml` automatically.
+3. Railway will use Python/Nixpacks (no Docker required).
 4. Add environment variables in Railway:
 - `SECRET_KEY`
-- `DATABASE_URL` (PostgreSQL recommended)
+- `DATABASE_URL` (Railway PostgreSQL connection string)
 - `PUBLIC_BASE_URL` (your production domain)
 - `MAX_CONTENT_LENGTH` (bytes, e.g. `16777216` for 16 MB)
 - `SESSION_COOKIE_SECURE=true` (for HTTPS)
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+- `USE_CLOUDINARY=true`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
 5. Deploy.
 6. Seed admin once (Railway service shell):
    ```bash
@@ -63,6 +70,6 @@ Health endpoint:
 This ensures generated QR codes point to your custom domain.
 
 ## Notes
-- Uploaded files are stored in `app/static/uploads/`.
-- For production, use managed object storage (S3/GCS) instead of local disk.
-- Railway ephemeral disk means uploaded files can be lost on redeploy/restart. Move uploads to S3/GCS for production persistence.
+- If `USE_CLOUDINARY=true`, employee photos and QR images are stored in Cloudinary (persistent across deploys).
+- If `USE_CLOUDINARY=false`, files are written to `app/static/uploads/` (ephemeral in Railway).
+- SQLite (`sqlite:///weguide.db`) is not suitable for Railway production persistence. Use Railway PostgreSQL.
