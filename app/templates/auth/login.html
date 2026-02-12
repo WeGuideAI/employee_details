@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Admin Login | WeGuide{% endblock %}
+{% block content %}
+<section class="auth-card reveal">
+    <h1>WeGuide Admin</h1>
+    <p class="muted">Sign in to manage employee ID profiles.</p>
+
+    <form method="post" class="form-grid">
+        {{ form.hidden_tag() }}
+        <label>Email</label>
+        {{ form.email(class_="input") }}
+
+        <label>Password</label>
+        {{ form.password(class_="input") }}
+
+        <label class="checkbox">
+            {{ form.remember_me() }}
+            <span>Remember me</span>
+        </label>
+
+        {{ form.submit(class_="btn btn-primary") }}
+    </form>
+</section>
+{% endblock %}

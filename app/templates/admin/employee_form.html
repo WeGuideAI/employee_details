@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Employee' if mode == 'edit' else 'New Employee' }} | WeGuide{% endblock %}
+{% block content %}
+<section class="glass-card reveal">
+    <h1>{{ 'Edit Employee' if mode == 'edit' else 'Create Employee' }}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="form-grid two-col">
+        {{ form.hidden_tag() }}
+
+        <label>Employee ID</label>
+        {{ form.employee_code(class_="input") }}
+
+        <label>Full Name</label>
+        {{ form.full_name(class_="input") }}
+
+        <label>Designation</label>
+        {{ form.designation(class_="input") }}
+
+        <label>Department</label>
+        {{ form.department(class_="input") }}
+
+        <label>Blood Group</label>
+        {{ form.blood_group(class_="input") }}
+
+        <label>Phone Number</label>
+        {{ form.phone_number(class_="input") }}
+
+        <label>Email</label>
+        {{ form.email(class_="input") }}
+
+        <label>Emergency Contact</label>
+        {{ form.emergency_contact(class_="input") }}
+
+        <label>Date of Birth</label>
+        {{ form.date_of_birth(class_="input") }}
+
+        <label>Date of Joining</label>
+        {{ form.date_of_joining(class_="input") }}
+
+        <label>Address</label>
+        {{ form.address(class_="input textarea") }}
+
+        <label>Photo</label>
+        <input class="input" type="file" name="photo" accept="image/*">
+
+        <label class="checkbox">
+            {{ form.is_active() }}
+            <span>Profile active for QR access</span>
+        </label>
+
+        <div class="full-row form-actions">
+            {{ form.submit(class_="btn btn-primary") }}
+            <a href="{{ url_for('admin.dashboard') }}" class="btn">Back</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

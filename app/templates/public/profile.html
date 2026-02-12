@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ employee.full_name }} | WeGuide{% endblock %}
+{% block body_class %}profile-page{% endblock %}
+{% block content %}
+<section class="profile-hero reveal">
+    <div class="hero-brand hero-brand-animated">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="WeGuide Logo" class="hero-logo">
+    </div>
+
+    <div class="card-controls">
+        <button id="flipToggle" class="btn btn-primary flip-btn" type="button" aria-pressed="false">
+            Flip ID Card
+        </button>
+    </div>
+
+    <div class="flip-card" id="flipCard">
+        <div class="flip-card-inner">
+            <article class="id-card glass-card interactive-id-card flip-face flip-front" id="interactiveIdCard">
+                <div class="id-scanline" aria-hidden="true"></div>
+                <div class="id-glow" aria-hidden="true"></div>
+                <div class="id-left">
+                    {% if employee.photo_path %}
+                        <img class="profile-photo" src="{{ url_for('static', filename=employee.photo_path) }}" alt="{{ employee.full_name }}">
+                    {% else %}
+                        <div class="profile-fallback">{{ employee.full_name[:1] }}</div>
+                    {% endif %}
+                    <p class="emp-code">ID: {{ employee.employee_code }}</p>
+                    <div class="status-chip">Verified Employee</div>
+                </div>
+                <div class="id-right">
+                    <h1>{{ employee.full_name }}</h1>
+                    <p class="designation">{{ employee.designation }}</p>
+                    <div class="meta-grid">
+                        {% if employee.department %}<p class="meta"><span>Department</span>{{ employee.department }}</p>{% endif %}
+                        {% if employee.blood_group %}<p class="meta"><span>Blood Group</span>{{ employee.blood_group }}</p>{% endif %}
+                        {% if employee.phone_number %}<p class="meta"><span>Phone</span>{{ employee.phone_number }}</p>{% endif %}
+                        {% if employee.email %}<p class="meta"><span>Email</span>{{ employee.email }}</p>{% endif %}
+                        {% if employee.address %}<p class="meta"><span>Address</span>{{ employee.address }}</p>{% endif %}
+                        {% if employee.emergency_contact %}<p class="meta"><span>Emergency</span>{{ employee.emergency_contact }}</p>{% endif %}
+                        {% if employee.date_of_birth %}<p class="meta"><span>DOB</span>{{ employee.date_of_birth.strftime('%d %b %Y') }}</p>{% endif %}
+                        {% if employee.date_of_joining %}<p class="meta"><span>Joined</span>{{ employee.date_of_joining.strftime('%d %b %Y') }}</p>{% endif %}
+                    </div>
+                </div>
+            </article>
+
+            <article class="id-card glass-card interactive-id-card flip-face flip-back">
+                <div class="id-back-content">
+                    <h2>WeGuide Identity Services</h2>
+                    <p class="muted">Smart employee identity with secure QR verification.</p>
+                    <div class="service-grid">
+                        <p class="service-pill">Access Verification</p>
+                        <p class="service-pill">Real-time Profile</p>
+                        <p class="service-pill">Emergency Contact</p>
+                        <p class="service-pill">Corporate Directory</p>
+                    </div>
+                    {% if employee.qr_code_path %}
+                        <img class="back-qr" src="{{ url_for('static', filename=employee.qr_code_path) }}" alt="Employee QR">
+                    {% endif %}
+                    <p class="back-id">Employee Code: {{ employee.employee_code }}</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <div class="qr-panel glass-card">
+        {% if employee.qr_code_path %}
+            <img src="{{ url_for('static', filename=employee.qr_code_path) }}" alt="Employee QR">
+        {% endif %}
+        <div>
+            <p class="qr-title">Secure WeGuide digital ID profile</p>
+            <p class="muted qr-subtitle">This smart card updates in real-time from WeGuide.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

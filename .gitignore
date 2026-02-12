@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.db
+.env
+.venv/
+venv/
+app/static/uploads/employees/*
+app/static/uploads/logos/*
+app/static/uploads/qrcodes/*
+!app/static/uploads/employees/.gitkeep
+!app/static/uploads/logos/.gitkeep
+!app/static/uploads/qrcodes/.gitkeep

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | WeGuide{% endblock %}
+{% block content %}
+<section class="admin-topbar reveal">
+    <div>
+        <h1>WeGuide Admin</h1>
+        <p class="muted">Manage employees, photos, and QR identity pages.</p>
+    </div>
+    <div class="topbar-actions">
+        <a href="{{ url_for('admin.create_employee') }}" class="btn btn-primary">Add Employee</a>
+        <form method="post" action="{{ url_for('auth.logout') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
+    </div>
+</section>
+
+<section class="glass-card reveal">
+    <h2>Employees</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Emp ID</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Status</th>
+                    <th>QR</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td data-label="Emp ID">{{ employee.employee_code }}</td>
+                    <td data-label="Name">{{ employee.full_name }}</td>
+                    <td data-label="Designation">{{ employee.designation }}</td>
+                    <td data-label="Status">
+                        <span class="pill {{ 'pill-on' if employee.is_active else 'pill-off' }}">
+                            {{ 'Active' if employee.is_active else 'Inactive' }}
+                        </span>
+                    </td>
+                    <td data-label="QR">
+                        {% if employee.qr_code_path %}
+                            <img class="qr-thumb" src="{{ url_for('static', filename=employee.qr_code_path) }}" alt="QR Code">
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td data-label="Actions" class="action-cell">
+                        <div class="action-group">
+                            <a class="btn btn-small" href="{{ url_for('admin.edit_employee', employee_id=employee.id) }}">Edit</a>
+                            <a class="btn btn-small" target="_blank" href="{{ url_for('public.employee_profile', public_id=employee.public_id) }}">Open Page</a>
+                        </div>
+                        <form method="post" action="{{ url_for('admin.delete_employee', employee_id=employee.id) }}" onsubmit="return confirm('Delete this employee?');">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="no-data-row">
+                    <td colspan="6" class="muted">No employees added yet.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
