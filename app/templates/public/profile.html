@@ -46,16 +46,12 @@
             <article class="id-card glass-card interactive-id-card flip-face flip-back">
                 <div class="id-back-content">
                     <h2>WeGuide Identity Services</h2>
-                    <p class="muted">Smart employee identity with secure QR verification.</p>
-                    <div class="service-grid">
-                        <p class="service-pill">Access Verification</p>
-                        <p class="service-pill">Real-time Profile</p>
-                        <p class="service-pill">Emergency Contact</p>
-                        <p class="service-pill">Corporate Directory</p>
+                    <p class="muted">Company information</p>
+                    <div class="company-details">
+                        <p class="company-line"><span>Located in:</span> Orchid Mall</p>
+                        <p class="company-line"><span>Address:</span> 2nd Floor, Orchid Mall, We Guide, 966, National Highway, Sekharipuram, Kalpathy, Palakkad, Kerala 678003</p>
+                        <p class="company-line"><span>Phone:</span> 075939 93975</p>
                     </div>
-                    {% if employee.qr_code_path %}
-                        <img class="back-qr" src="{{ media_url(employee.qr_code_path) }}" alt="Employee QR">
-                    {% endif %}
                     <p class="back-id">Employee Code: {{ employee.employee_code }}</p>
                 </div>
             </article>
